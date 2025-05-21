@@ -14,6 +14,8 @@ class Post extends Model
         "discription",
     ];
 
-    // public function 
+   public function oneUser(){
+        return $this->belongsTo(Registration::class);
+    }
 
 }

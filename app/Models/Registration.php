@@ -39,5 +39,8 @@ class Registration extends Authenticatable implements JWTSubject
     public function profile(){
         return $this->hasOne(Profile::class,'registration_id');
     }
+    public function post(){
+        return $this->hasMany(Post::class,'registration_id');
+    }
 
 }
