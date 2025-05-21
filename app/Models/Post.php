@@ -11,11 +11,15 @@ class Post extends Model
     protected $table="post";
     protected $fillable = [
         "title",
-        "discription",
+        "description",
+        "registration_id",
+        "category_id"
     ];
 
    public function oneUser(){
         return $this->belongsTo(Registration::class);
     }
-
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 }

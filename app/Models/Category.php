@@ -13,12 +13,21 @@ class Category extends Model
     protected $fillable = [
         "category",
     ];
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(Registration::class);
     }
 
-    public function profileaccess() {
-    return $this->belongsToMany(Profile::class, 'preferred_categories');
-}
+
+    public function profileaccess()
+    {
+        return $this->belongsToMany(Profile::class, 'preferred_categories');
+    }
+    
+    
+    public function post()
+    {
+        return $this->hasMany(Post::class);
+    }
 
 }

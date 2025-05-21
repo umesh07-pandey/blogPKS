@@ -54,6 +54,7 @@
 
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -74,23 +75,22 @@ Route::group(["prefix" => "public"], function () {
 });
 
 // Protected routes (logged-in users)
-Route::group(["prefix" => "protected", "middleware" => ['is_user','jwt.auth']], function () {
+Route::group(["prefix" => "protected", "middleware" => ['jwt.auth']], function () {
     Route::get("/getprofile", [AuthController::class, "getprofile"]);
     Route::post("/updateprofile", [AuthController::class, "updateprofile"]);
+    Route::post("/createpost", [PostController::class, "create_post"]);
+    Route::put("/updatepost", [PostController::class, "update_post"]);
+    Route::delete("/deletepost", [PostController::class, "delete_post"]);
+    Route::get("/getallpost", [PostController::class, "get_post"]);
 });
 
 // Admin-only private routes
-Route::group([
-    'prefix' => 'private',
-    'middleware' => ['is_admin','jwt.auth']
-], function () {
+Route::group(['prefix' => 'private', 'middleware' => ['is_admin', 'jwt.auth']], function () {
     Route::post('/add_category', [AdminController::class, 'insert']);
     Route::put('/update_category/{id}', [AdminController::class, 'update']);
     Route::get('/get_all_category', [AdminController::class, 'fetchall']);
     Route::delete('/delete_category/{id}', [AdminController::class, 'delete']);
 
-    // ✅ New: delete category by name
-    Route::delete('/delete_category_by_name/{name}', [AdminController::class, 'deleteByName']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
