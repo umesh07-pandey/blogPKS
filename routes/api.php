@@ -56,6 +56,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -82,6 +83,8 @@ Route::group(["prefix" => "protected", "middleware" => ['jwt.auth']], function (
     Route::put("/updatepost", [PostController::class, "update_post"]);
     Route::delete("/deletepost", [PostController::class, "delete_post"]);
     Route::get("/getallpost", [PostController::class, "get_post"]);
+    Route::post("/createcomment", [CommentController::class, "createcomment"]);
+    Route::delete("/deletecomment", [CommentController::class, "deletecomment"]);
 });
 
 // Admin-only private routes

@@ -142,9 +142,18 @@ class PostController extends Controller
         try{
             DB::beginTransaction(); 
             $data=auth()->user();
+
             $postdata=$data->post;
+           
+            foreach($postdata as $post){
+                 $post->comments;
+            }
+
+            $post_Data=[
+                "post"=>$postdata,
+            ];
             DB::commit();
-            return response()->json($postdata);
+            return response()->json($post_Data);
 
         }
         catch(\Exception $e){
@@ -156,5 +165,5 @@ class PostController extends Controller
         }
     }
 
-    
+
 }

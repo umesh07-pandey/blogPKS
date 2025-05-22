@@ -42,5 +42,8 @@ class Registration extends Authenticatable implements JWTSubject
     public function post(){
         return $this->hasMany(Post::class,'registration_id');
     }
+    public function comment(){
+        return $this->hasMany(Comment::class);
+    }
 
 }
